@@ -126,6 +126,8 @@ export const phoneSurveyQuestionResponseEvent = async (req: any, res: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const transcribe: boolean = questionDBO?.transcribe || false;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+    const transcribeAsEmail: boolean = questionDBO?.transcribeAsEmail || false;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const numDigitsToGather: number = parseInt(questionDBO?.numDigits || '1');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const digitsTimeout: number = parseInt(questionDBO?.digitsTimeout || '8');
@@ -138,7 +140,7 @@ export const phoneSurveyQuestionResponseEvent = async (req: any, res: any) => {
             twiml.record({
                 timeout: voiceRecordingTimeout,
                 transcribe: transcribe,
-                transcribeCallback: `${transcriptionURL}?questionNumber=${questionNumber}`,
+                transcribeCallback: `${transcriptionURL}?questionNumber=${questionNumber}&transcribeAsEmail=${transcribeAsEmail}`,
                 playBeep: true,
             });
         } else {
@@ -259,13 +261,15 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     // let questionDBO: any = undefined;
     // console.log("Got event from phone survey call for call with SID ", callSID);
     const snapshot = await questionRef.where('order', '==', questionNumber).get();
-    let transcribeAsEmail = false;
+    let transcribeAsEmail = req?.query?.transcribeAsEmail === 'true';
+    console.log("transcribeAsEmail", transcribeAsEmail);
+    debug(transcribeAsEmail);
     if (!snapshot.empty) {
         snapshot.forEach(doc => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             questionDBOID = doc?.id || '';
-            transcribeAsEmail = doc?.data()?.transcribeAsEmail || false;
-            debug(`Transcribe as email is ${transcribeAsEmail} for question ${questionDBOID}`);
+            // transcribeAsEmail = doc?.data()?.transcribeAsEmail || false;
+            // debug(`Transcribe as email is ${transcribeAsEmail} for question ${questionDBOID}`);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
             // questionDBO = doc?.data();
         });
