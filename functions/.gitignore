@@ -2,6 +2,10 @@
 lib/**/*.js
 lib/**/*.js.map
 
+coverage
+coverage/
+coverage/*
+
 # TypeScript v1 declaration files
 typings/
 

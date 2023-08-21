@@ -45,6 +45,7 @@ const AdminPhoneSurveyPage = () => {
     const [questionText, setQuestionText] = useState('');
     const [title, setTitle] = useState('');
     const [transcribe, setTranscribe] = useState(false);
+    const [transcribeAsEmail, setTranscribeAsEmail] = useState(false);
     const [type, setType] = useState('keypad');
     const [voiceRecordingTimeout, setVoiceRecordingTimeout] = useState(5);
     const [digitResponseMin, setDigitResponseMin] = useState(0);
@@ -141,6 +142,7 @@ const AdminPhoneSurveyPage = () => {
                                         setQuestionText(question?.question || 'question text');
                                         setTitle(question?.title || 'question title');
                                         setTranscribe(question?.transcribe || false);
+                                        setTranscribeAsEmail(question?.transcribeAsEmail || false);
                                         setType(question?.type || 'keypad');
                                         // eslint-disable-next-line max-len
                                         setVoiceRecordingTimeout(question?.voiceRecordingTimeout || 5);
@@ -427,6 +429,24 @@ const AdminPhoneSurveyPage = () => {
                                         />
                                     </Form.Group>
                                 )}
+                            {(type === 'voice' && transcribe)
+                                && (
+                                    <Form.Group className="mb-3" controlId="formBasicFacilityName">
+                                        <Form.Label>Transcribe as Email</Form.Label>
+                                        <Form.Check
+                                            type="switch"
+                                            id="custom-switch"
+                                            defaultChecked={false}
+                                            label={transcribeAsEmail ? 'Enabled' : 'Disabled'}
+                                            value={transcribeAsEmail ? 'on' : 'off'}
+                                            checked={transcribeAsEmail}
+                                            onChange={(event) => {
+                                                // eslint-disable-next-line max-len
+                                                setTranscribeAsEmail(event?.target?.checked);
+                                            }}
+                                        />
+                                    </Form.Group>
+                                )}
                             {type === 'voice'
                                 && (
                                     <Form.Group className="mb-3" controlId="formBasicFacilityName">
@@ -459,6 +479,7 @@ const AdminPhoneSurveyPage = () => {
                                     digitResponseMin,
                                     digitResponseMax,
                                     numDigits,
+                                    transcribeAsEmail,
                                 }, { merge: true }).then(() => {
                                     fetchQuestions().then(() => {
                                         handleCloseModal();
