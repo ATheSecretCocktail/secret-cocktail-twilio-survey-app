@@ -3,7 +3,7 @@ import * as VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import {transcriptionURL, voiceURL} from "../config/twilio-config";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
-import { log, debug } from "firebase-functions/logger";
+import { debug } from "firebase-functions/logger";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const phoneSurveyEvent = async (req: any, res: any) => {
@@ -82,10 +82,6 @@ export const phoneSurveyFailureEvent = async (req: any, res: any) => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const phoneSurveyQuestionResponseEvent = async (req: any, res: any) => {
-    debug("Phone survey response event", req?.query);
-    console.debug("Phone survey response event", req?.query);
-    console.error("Phone survey response event", req?.query);
-
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     const questionNumber: number = parseInt((req?.query?.questionNumber || '0').toString());
     const nextQuestionNumber: number = parseInt(questionNumber.toString()) + 1;
@@ -256,8 +252,6 @@ export const phoneSurveyRecordingEvent = async (req: any, res: any) => {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/require-await
 export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
-    log("Transcription event invoked");
-
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     const questionNumber: number = parseInt((req?.query?.questionNumber || '0').toString());
 
