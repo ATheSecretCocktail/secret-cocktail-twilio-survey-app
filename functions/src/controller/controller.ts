@@ -264,6 +264,7 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             questionDBOID = doc?.id || '';
             transcribeAsEmail = doc?.data()?.transcribeAsEmail || false;
+            console.log(`Transcribe as email is ${transcribeAsEmail} for question ${questionDBOID}`);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
             // questionDBO = doc?.data();
         });
