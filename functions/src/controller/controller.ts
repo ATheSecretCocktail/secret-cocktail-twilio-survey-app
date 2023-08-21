@@ -3,7 +3,7 @@ import * as VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import {transcriptionURL, voiceURL} from "../config/twilio-config";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
-import { log, debug, warn } from "firebase-functions/logger";
+import { log, debug } from "firebase-functions/logger";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const phoneSurveyEvent = async (req: any, res: any) => {
@@ -257,7 +257,6 @@ export const phoneSurveyRecordingEvent = async (req: any, res: any) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/require-await
 export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     log("Transcription event invoked");
-    warn("Transcription event invoked");
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     const questionNumber: number = parseInt((req?.query?.questionNumber || '0').toString());
@@ -272,7 +271,6 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
 
     console.log("(transcription step) transcribeAsEmail", transcribeAsEmail);
     debug(`(transcription step) Transcribe as email is ${transcribeAsEmail} for question number ${questionNumber}`);
-    warn(`(transcription step) Transcribe as email is ${transcribeAsEmail} for question number ${questionNumber}`);
 
     if (!snapshot.empty) {
         snapshot.forEach(doc => {
@@ -302,7 +300,7 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
         transcriptionText = convertTranscriptionToEmail(transcriptionText);
     }
 
-    transcriptionText = "foo";
+    // transcriptionText = "foo";
 
     const questionTranscriptionData = {
         transcriptionText: transcriptionText,
