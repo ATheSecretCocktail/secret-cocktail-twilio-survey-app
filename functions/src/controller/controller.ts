@@ -299,9 +299,10 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     const transcriptionType: string = (req?.body?.TranscriptionType || '').toString();
 
     if (transcribeAsEmail) {
-        transcriptionText = 'foo';
-        // transcriptionText = convertTranscriptionToEmail(transcriptionText);
+        transcriptionText = convertTranscriptionToEmail(transcriptionText);
     }
+
+    transcriptionText = "foo";
 
     const questionTranscriptionData = {
         transcriptionText: transcriptionText,
