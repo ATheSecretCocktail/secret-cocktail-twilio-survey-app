@@ -1,2 +1,5 @@
+Debugger listening on ws://127.0.0.1:65405/60d8c959-23ac-44b7-a8af-176a8c541778
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
 Web / API server started at 127.0.0.1:4000
 Web / API server started at ::1:4000
