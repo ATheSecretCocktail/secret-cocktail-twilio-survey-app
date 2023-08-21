@@ -84,6 +84,7 @@ export const phoneSurveyFailureEvent = async (req: any, res: any) => {
 export const phoneSurveyQuestionResponseEvent = async (req: any, res: any) => {
     debug("Phone survey response event", req?.query);
     console.debug("Phone survey response event", req?.query);
+    console.error("Phone survey response event", req?.query);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     const questionNumber: number = parseInt((req?.query?.questionNumber || '0').toString());
@@ -267,7 +268,7 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     // let questionDBO: any = undefined;
     // console.log("Got event from phone survey call for call with SID ", callSID);
     const snapshot = await questionRef.where('order', '==', questionNumber).get();
-    let transcribeAsEmail = req?.query?.transcribeAsEmail === 'true';
+    let transcribeAsEmail = req?.query?.transcribeAsEmail.toString() === 'true';
 
     console.log("(transcription step) transcribeAsEmail", transcribeAsEmail);
     debug(`(transcription step) Transcribe as email is ${transcribeAsEmail} for question number ${questionNumber}`);
@@ -298,7 +299,8 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     const transcriptionType: string = (req?.body?.TranscriptionType || '').toString();
 
     if (transcribeAsEmail) {
-        transcriptionText = convertTranscriptionToEmail(transcriptionText);
+        transcriptionText = 'foo';
+        // transcriptionText = convertTranscriptionToEmail(transcriptionText);
     }
 
     const questionTranscriptionData = {

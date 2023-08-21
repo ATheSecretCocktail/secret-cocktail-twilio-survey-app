@@ -15,3 +15,4 @@ export const recordingURL = `${process?.env?.TWILIO_STATUS_CALLBACK_URL || ''}/$
 // url to handle transcription updates
 export const transcriptionEndpoint = 'transcription-events';
 export const transcriptionURL = `${process?.env?.TWILIO_STATUS_CALLBACK_URL || ''}/${transcriptionEndpoint}`;
+// export const transcriptionURL = `https://40ec-68-234-129-32.ngrok-free.app/tsc-phone-survey/us-central1/app/${transcriptionEndpoint}`;

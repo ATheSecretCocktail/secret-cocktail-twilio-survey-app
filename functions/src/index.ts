@@ -11,7 +11,9 @@ const app = express();
 // @ts-ignore
 app.use(bodyParser.urlencoded({ extended: false }));
 const allowedOrigins = ['http://localhost:3000',
-                        'https://secret-cocktail.web.app'];
+    'https://secret-cocktail.web.app',
+    '*',
+    'https://tsc-phone-survey.web.app'];
 app.use(cors({
     origin: function(origin, callback){
         if(!origin) return callback(null, true);
