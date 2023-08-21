@@ -262,8 +262,10 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
     // console.log("Got event from phone survey call for call with SID ", callSID);
     const snapshot = await questionRef.where('order', '==', questionNumber).get();
     let transcribeAsEmail = req?.query?.transcribeAsEmail === 'true';
-    console.log("transcribeAsEmail", transcribeAsEmail);
-    debug(transcribeAsEmail);
+
+    console.log("(transcription step) transcribeAsEmail", transcribeAsEmail);
+    debug(`(transcription step) Transcribe as email is ${transcribeAsEmail} for question number ${questionNumber}`);
+
     if (!snapshot.empty) {
         snapshot.forEach(doc => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
