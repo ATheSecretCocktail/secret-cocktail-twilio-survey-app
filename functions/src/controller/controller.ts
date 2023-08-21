@@ -3,6 +3,7 @@ import * as VoiceResponse from "twilio/lib/twiml/VoiceResponse";
 import {transcriptionURL, voiceURL} from "../config/twilio-config";
 import {firestore} from "firebase-admin";
 import FieldValue = firestore.FieldValue;
+import { debug } from "firebase-functions/logger";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const phoneSurveyEvent = async (req: any, res: any) => {
@@ -264,7 +265,7 @@ export const phoneSurveyTranscriptionEvent = async (req: any, res: any) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             questionDBOID = doc?.id || '';
             transcribeAsEmail = doc?.data()?.transcribeAsEmail || false;
-            console.log(`Transcribe as email is ${transcribeAsEmail} for question ${questionDBOID}`);
+            debug(`Transcribe as email is ${transcribeAsEmail} for question ${questionDBOID}`);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
             // questionDBO = doc?.data();
         });
