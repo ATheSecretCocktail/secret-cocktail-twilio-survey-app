@@ -50,7 +50,7 @@
 .listItemButtonsContainer {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .innerContainer3 {
@@ -163,7 +163,6 @@
 
 .primaryBtn {
     composes: primaryBtn from "/src/globalStyles.css";
-    width: 100%;
 }
 
 .backBtnContainer:hover {
@@ -219,4 +218,8 @@
 
 .downloadBtn > span {
     color: white;
+}
+
+.longTableColumn {
+    min-width: 200px;
 }
